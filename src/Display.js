@@ -31,8 +31,11 @@ const style = {
         height: "100%",
         width: "100%",
         backgroundColor: "black",
-        color: "white",
         padding: ".5em",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-evenly"
     }
 }
 
@@ -48,9 +51,12 @@ const Display = (props) => {
             </div>)
             ||
             (menu.showSelect && !menu.showMenu &&
-                <h2 style={style.showSelect}>
-                    {menu.menu[menu.selected].title}
-                </h2>
+                <div style={style.showSelect}>
+                    <h2 style={{color: "white"}}>
+                        {menu.menu[menu.selected].title}
+                    </h2>
+                    <img style={{width: "40%", borderRadius: "2em"}} alt="" src={menu.menu[menu.selected].img} />
+                </div>
             )
         }
     </div>
