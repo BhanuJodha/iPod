@@ -1,25 +1,59 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Navigator from './Navigator';
+import Display from './Display';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showMenu: true,
+      selected: 2,
+      showSelect: false,
+      menu: [
+        {
+          title: "Game",
+          key: 0
+        },
+        {
+          title: "Music",
+          key: 1
+        },
+        {
+          title: "Setting",
+          key: 2
+        }
+      ]
+    }
+  }
+
+  toggleMenu = () => {
+    this.setState({
+      showSelect: false,
+      showMenu: !this.state.showMenu
+    })
+  }
+
+  changeCurrent = (towards) => {
+    // javascript mod bug
+    this.setState({
+      selected: (((((this.state.selected) + towards) % this.state.menu.length) + this.state.menu.length) % this.state.menu.length)
+    })
+  }
+
+  toggleCurrent = () => {
+    this.setState({
+      showSelect: !this.state.showSelect,
+      showMenu: !this.state.showMenu
+    })
+  }
+
+  render() {
+    return <div className="App">
+      <Display menu={this.state} />
+      <Navigator toggleMenu={this.toggleMenu} changeCurrent={this.changeCurrent} toggleCurrent={this.toggleCurrent}/>
     </div>
-  );
+  };
 }
 
 export default App;
